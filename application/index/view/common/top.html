@@ -1,0 +1,37 @@
+<header class="top" id="top">
+	<div class="top-left">
+		冼智铧
+	</div>
+	<div class="top-right" style="position: relative;">
+
+		<div class="search-div animatedDown">
+			<form  method="get" action="{:url('index/Search/index')}">
+				<input type="text" class="search-div-form" name="keywords" placeholder="输入关键词回车搜索...">
+			</form>
+		</div>
+
+		<div class="dropdown hidden-xs pull-right" style="display: inline;">
+		  <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+		    登录
+		    <span class="caret"></span>
+		  </a>
+		  <ul class="dropdown-menu dropdown-menu-right shake" role="menu" aria-labelledby="dropdownMenu1">
+		   	<form>
+		    	<label for="navbar-login-user">用户名</label>
+		    	<input type="text" name="username" class="form-control" placeholder="用户名或电子邮箱">
+		    
+		    	<label for="navbar-login-user">密码</label>
+		    	<input type="password" name="password" class="form-control" placeholder="密码">
+		    	<button type="submit" id="login-submit" name="submitLogin" class="btn btn-block btn-primary">
+			    	<span class="text">暂未开放</span>
+		    	</button>
+		    </form>
+		  </ul>
+		</div> 
+		<i class="glyphicon glyphicon-search pull-right toggle-search"></i>
+		<i class="glyphicon glyphicon-menu-hamburger pull-right small-btn toggle-left" style="background-color: rgb(142,133,200);"></i>
+	</div>
+</header>
+	
+<div id="zhebu"></div>
+<div id="gotop"><i class="glyphicon glyphicon-hand-up"></i></div>

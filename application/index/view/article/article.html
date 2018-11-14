@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冼智铧 - {$articles.title}</title>
+	{include file="common/meta" /}
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="__STATIC__/index/css/index.css">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		{include file="common/top" /}
+		<div class="main">
+			<div class="main-left">
+			{include file="common/left" /}
+			</div>
+			<div class="main-right">
+				<div class="main-right-left">
+					<div class="alert-bottom">
+						<h4 class="article-title">{$articles.title}</h4>
+						<div class="time mt-20">
+							<i class="glyphicon glyphicon-time"></i> {$articles.time} <i class="jiange"></i>
+							<i class="glyphicon glyphicon-user"></i> {$articles.author} <i class="jiange"></i>
+							<i class="glyphicon glyphicon-tag"></i> 
+								<?php
+								    $arr=explode(',',$articles['keywords']);
+								    foreach ($arr as $k => $v){
+								        echo "<a href='/tp5blog/public/index.php/index/search/index?keywords=$v'>$v</a> ";
+
+								    }
+								?>
+							 <i class="jiange"></i>
+							<i class="glyphicon glyphicon-comment"></i> {$count} <i class="jiange"></i>
+							<i class="glyphicon glyphicon-eye-open"></i> {$articles.click} <i class="jiange"></i>
+						</div>
+					</div>
+					<div class="content article-bigcontent cate_content">
+						<div class="position">
+							<ol class="breadcrumb">
+							  <li><a href="/tp5blog/public/index.php">首页</a></li>
+							  <li><a href="javascript:;">{$articles.title}</a></li>
+							</ol>
+						</div>
+
+						<div class="panel panel-default article-content">
+							<div class="panel-heading">
+								{if condition="$articles['pic']"}<img src="__STATIC__{$articles.pic}">{else /}<img src="__STATIC__/error.jpg">{/if}
+							</div>
+							<div class="panel-body dec">
+								{$articles.content | htmlspecialchars_decode}
+							</div>
+							<div class="article-dianzan-div">
+								<div class="article-dianzan"></div>
+							</div>
+							<script>
+								$(function(){
+									$('.article-dianzan').click(function(){
+										$(this).addClass('on');
+									})
+								})
+							</script>
+							<hr>
+							<p class="c">转载原创文章请注明，转载自： <a href="http://www.zhihuas.com">智铧博客</a> » <a href="/article/{$articles.id}.html">{$articles.title}</a></p>
+						</div>
+
+						<div class="prenext">
+						{if condition="$after"}
+						    <a href="/tp5blog/public/index.php/article/{$after.id}.html"><div class="pull-left">上一页</div></a>
+						{else /}
+						    <div class="pull-left">没有了</div>
+						{/if}
+						{if condition="$front"}
+						    <a href="/tp5blog/public/index.php/article/{$front.id}.html"><div class="pull-right">下一页</div></a>
+						{else /}
+						    <div class="pull-right">没有了</div>
+						{/if}
+						</div>
+						<!-- 评论输入框 -->
+						{if condition="$Request.session.zhihuas_name"}
+						<div class="row mes_div">
+						    <div class="col-sm-1 cookimg">
+						        <div class="cookimg_div">
+						        	<div class="pulse"></div>
+						            <img src="{$Request.session.zhihuas_img}" width="34" id="img" />
+						        </div>
+						    </div>
+						    <div class="col-sm-11 form">
+						        <div class="row cookres" style="display: none;">
+						            <div class="col-sm-4">
+						                <input name="name" type="text" class="form-control" value="{$Request.session.zhihuas_name}" id="name" AUTOCOMPLETE="off" placeholder="昵称 / 输入QQ号快速补全">
+						            </div>
+						            <div class="col-sm-4">
+						                <input name="email" type="text" class="form-control" value="{$Request.session.zhihuas_email}" id="email" AUTOCOMPLETE="off" placeholder="邮箱地址">
+						            </div>
+						            <div class="col-sm-4">
+						                <input name="web" type="text" class="form-control" value="{$Request.session.zhihuas_web}" id="web" AUTOCOMPLETE="off" placeholder="你的网站">
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-sm-12">
+						                <textarea name="content" class="form-control" id="content" cols="30" rows="3" placeholder="请输入留言内容"></textarea>
+						            </div>
+						        </div>
+						        <button class="btn btn-success" id="btn-success" data-articleid="{$articles.id}" style="margin-top: 15px;" {if condition="$Request.session.zhihuas_name"} data-cookie="yes" {/if} >提交</button>
+						    </div>
+						</div>
+						{else /}
+						<div class="row mes_div">
+						    <div class="col-sm-1">
+						        <div class="cookimg_div">
+						            <img src="" width="34" id="img" />
+						        </div>
+						        <script>
+						        	$("#img").attr("src","https://static.youku.com/lvip/img/avatar/310/"+Math.floor(Math.random()*(40-10+1)+10)+".png")
+						        </script>
+						    </div>
+						    <div class="col-sm-11 form">
+						        <div class="row">
+						            <div class="col-sm-4">
+						                <input name="name" type="text" class="form-control" id="name" AUTOCOMPLETE="off" placeholder="昵称 / 输入QQ号快速补全">
+						            </div>
+						            <div class="col-sm-4">
+						                <input name="email" type="text" class="form-control" id="email" AUTOCOMPLETE="off" placeholder="邮箱地址">
+						            </div>
+						            <div class="col-sm-4">
+						                <input name="web" type="text" class="form-control" id="web" AUTOCOMPLETE="off" placeholder="你的网站">
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-sm-12">
+						                <textarea name="content" class="form-control" id="content" cols="30" rows="3" placeholder="请输入留言内容"></textarea>
+						            </div>
+						        </div>
+						        <button class="btn btn-success" id="btn-success" data-articleid="{$articles.id}" style="margin-top: 15px;" {if condition="$Request.session.zhihuas_name"} data-cookie="yes" {/if} >提交</button>
+						    </div>
+						</div>
+						{/if}
+						<!-- 评论列表 -->
+						<h4 class="text-right">（{$count}）评论博主审核才显示</h4>
+						{volist name="message" id="vo"}
+						<div class='media' {if condition="$vo['level'] neq '0'"} style="margin-left: 50px;" {/if}>
+						    <div class='media-left'>
+						       <div class='media-object'>
+						           <img src='{$vo.img}' width='40px' height='40px' />
+						       </div>
+						    </div>
+						    <div class='media-body'>
+						       <div class='media-heading'>
+						           <p><a href="{$vo.web}" target="_blank" {if condition="$vo['isadmin'] eq '1'"} style="font-weight: 600;color: red;" {/if}>{$vo.name}</a>
+						                <i class='pull-right time'>{$vo.time}</i>
+						           </p>
+						           <p class='message'><b>
+										{if condition="$vo.Aname"}<a href="javascript:;" class="aite">@{$vo.Aname}:</a> {/if}{$vo.content}
+						           </b></p>
+						           <p class='time'>
+						               <i class='dianzan' data-id='{$vo.id}'><svg viewBox='0 0 20 18' xmlns='http://www.w3.org/2000/svg' class='Icon Icon--like Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M.718 7.024c-.718 0-.718.63-.718.63l.996 9.693c0 .703.718.65.718.65h1.45c.916 0 .847-.65.847-.65V7.793c-.09-.88-.853-.79-.846-.79l-2.446.02zm11.727-.05S13.2 5.396 13.6 2.89C13.765.03 11.55-.6 10.565.53c-1.014 1.232 0 2.056-4.45 5.83C5.336 6.965 5 8.01 5 8.997v6.998c-.016 1.104.49 2 1.99 2h7.586c2.097 0 2.86-1.416 2.86-1.416s2.178-5.402 2.346-5.91c1.047-3.516-1.95-3.704-1.95-3.704l-5.387.007z'></path></g></svg> <i class='lovenum'>{$vo.love}</i></i>
+						               <i class="huifu_append"  data-key='on' data-id='{$vo.id}' data-level='{$vo.level}'><svg viewBox='0 0 22 16' class='Icon Icon--reply Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M21.96 13.22c-1.687-3.552-5.13-8.062-11.637-8.65-.54-.053-1.376-.436-1.376-1.56V.677c0-.52-.635-.915-1.116-.52L.47 6.67C.18 6.947 0 7.334 0 7.763c0 .376.14.722.37.987 0 0 6.99 6.818 7.442 7.114.453.295 1.136.124 1.135-.5V13c.027-.814.703-1.466 1.532-1.466 1.185-.14 7.596-.077 10.33 2.396 0 0 .395.257.535.257.892 0 .614-.967.614-.967z'></path></g></svg> <i class='lovenum'>回复</i></i>
+						           </p>
+						       </div>
+						       <div class="form_huifu"></div>
+						    </div>
+						</div>
+						{/volist}
+						
+
+					</div>
+				</div>
+				<div class="main-right-right">
+					{include file="common/right" /}
+
+					<div class="fixed-top">
+						<div class="tab-pane p-20" style="width: 240px;">
+						    <h4>相关文章</h4>
+						    <div class="media">
+						      <div class="media-body">
+						    	{volist name="ralateres" id="vo"}
+						        <a href="/tp5blog/public/index.php/article/{$vo.0}.html"><p class="media-heading" style="margin-top: 10px;">{$vo.1}</p></a>
+						    	{/volist}
+						      </div>
+						    </div>
+						</div>
+
+						<div class="tab-pane p-20" style="width: 240px;">
+						    <h4>频道推荐</h4>
+						    {volist name="recres" id="vo"}
+						    <div class="media">
+						      <div class="media-left">
+						        <a href="/tp5blog/public/index.php/article/{$vo.id}.html">
+						          {if condition="$vo['pic']"}
+						            <img class="media-object" src="__STATIC__{$vo.pic}" alt="{$vo.title}">
+						          {else /}
+						            <img class="media-object" src="__STATIC__/404.jpg" alt="">
+						          {/if}
+						        </a>
+						      </div>
+						      <div class="media-body">
+						        <a href="/tp5blog/public/index.php/article/{$vo.id}.html"><p class="media-heading">{$vo.title}</p></a>
+						        <p class="media-body2"><i class="glyphicon glyphicon-eye-open"></i> {$vo.click}<i class="jiange"></i><i class="glyphicon glyphicon-comment"></i> {$vo.count}</p>
+						      </div>
+						    </div>
+						    {/volist}
+						</div>
+					</div>
+
+				</div>
+			</div>
+			{include file="common/footer" /}
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="__STATIC__/index/js/index.js"></script>
+
+
+<script>
+
+// 相关文章固定顶部
+var navH = $(".fixed-top").offset().top;
+$(window).scroll(function(){
+	var scroH = $(this).scrollTop();
+	if(scroH>=navH){
+		$(".fixed-top").css({"position":"fixed","top":"50px"});
+	}else if(scroH<navH){
+		$(".fixed-top").css({"position":"static"});
+	}
+})
+
+
+var Stch=false;
+$('#btn-success').click(function(){
+    var email=$.trim($("#email").val());
+    var nameVal = $.trim($("#name").val());
+    var _this = $(this);
+    var regName = /[~#^$@%&!*()<>:;'"{}【】  ]/;
+    if (Stch==true){
+
+    }else{
+    	if(email =="" || nameVal == ""){
+    		alert('必须填写昵称及邮件');
+    		return false;
+    	}else if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
+    		alert('邮箱格式不正确！请重新输入');
+    		return false;
+    	}else if(nameVal.length < 2 || regName.test(nameVal)){
+    		alert('姓名长度2位以上，不包含特殊字符');
+    		return false;
+    	}else if($("#content").val()==""){
+    		alert('说点什么呀');
+    		return false;
+    	}
+    	Stch=true;
+        $.ajax({
+            url : "{:url('index/message/add_message')}",
+            type : "POST",
+            data : {
+                name : $('#name').val(),
+                email : $('#email').val(),
+                web : $('#web').val(),
+                content : $('#content').val(),
+                img : $('#img').attr('src'),
+                articleid : _this.attr('data-articleid'),
+            },
+            beforeSend : function (jqXHR, settings) {
+            	$('.mes_div').after("<div class='media' style='height:0;width:0;margin:0;padding:0;'></div>");
+            },
+            success : function(response,status,xhr){
+            	var json = $.parseJSON(response);
+                var div = `
+		                <div class='media showS'>
+		                    <div class='media-left'>
+		                       <div class='media-object'>
+		                           <img src='`+json.img+`' width='40px' height='40px' />
+		                       </div>
+		                    </div>
+		                    <div class='media-body'>
+		                       <div class='media-heading'>
+		                           <p><a href="`+json.web+`" target="_blank">`+json.name+`</a>
+		                                <i class='pull-right time'>`+json.time+`</i>
+		                           </p>
+		                           <p class='message'><b>`+json.content+`</b></p>
+		                           <p class='time'>
+		                               <i class='dianzan' data-id='`+json.id+`'><svg viewBox='0 0 20 18' xmlns='http://www.w3.org/2000/svg' class='Icon Icon--like Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M.718 7.024c-.718 0-.718.63-.718.63l.996 9.693c0 .703.718.65.718.65h1.45c.916 0 .847-.65.847-.65V7.793c-.09-.88-.853-.79-.846-.79l-2.446.02zm11.727-.05S13.2 5.396 13.6 2.89C13.765.03 11.55-.6 10.565.53c-1.014 1.232 0 2.056-4.45 5.83C5.336 6.965 5 8.01 5 8.997v6.998c-.016 1.104.49 2 1.99 2h7.586c2.097 0 2.86-1.416 2.86-1.416s2.178-5.402 2.346-5.91c1.047-3.516-1.95-3.704-1.95-3.704l-5.387.007z'></path></g></svg> <i class='lovenum'>`+json.love+`</i></i>
+		                               <i class="huifu_append"  data-level='0' data-key='on' data-id='`+json.id+`'><svg viewBox='0 0 22 16' class='Icon Icon--reply Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M21.96 13.22c-1.687-3.552-5.13-8.062-11.637-8.65-.54-.053-1.376-.436-1.376-1.56V.677c0-.52-.635-.915-1.116-.52L.47 6.67C.18 6.947 0 7.334 0 7.763c0 .376.14.722.37.987 0 0 6.99 6.818 7.442 7.114.453.295 1.136.124 1.135-.5V13c.027-.814.703-1.466 1.532-1.466 1.185-.14 7.596-.077 10.33 2.396 0 0 .395.257.535.257.892 0 .614-.967.614-.967z'></path></g></svg> <i class='lovenum'>回复</i></i>
+		                           </p>
+		                       </div>
+		                       <div class="form_huifu"></div>
+		                    </div>
+		                </div>`;
+                $('.media').eq(0).before(div);
+                $('#content').val('');
+                $.ajax({
+                    url : "{:url('index/message/setCookie')}",
+                    type : "POST",
+                    data : {
+                        name : $('#name').val(),
+                        email : $('#email').val(),
+                        img : $('#img').attr('src'),
+                        web : $('#web').val(),
+                    },
+                    success : function(res){
+
+                    }
+                });
+                Stch=false;
+            }
+        })
+    }
+});
+
+var Stch1 = false;
+$('.content').delegate('.btn_huifu','click',function(){
+    var email=$.trim($(this).parents('.form').find('.email').val());
+    var nameVal = $.trim($(this).parents('.form').find('.name').val());
+    var regName = /[~#^$@%&!*()<>:;'"{}【】  ]/;
+    if (Stch1==true){
+    }else{
+        if(email =="" || nameVal == ""){
+            alert('必须填写昵称及邮件');
+            return false;
+        }else if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
+            alert('邮箱格式不正确！请重新输入');
+            return false;
+        }else if(nameVal.length < 2 || regName.test(nameVal)){
+            alert('姓名长度2位以上，不包含特殊字符');
+            return false;
+        }else if($(this).parents('.form').find('.content-huifu').val()==""){
+            alert('说点什么呀');
+            return false;
+        }
+        Stch1=true;
+        var level = $(this).parents('.media-body').find('.huifu_append').attr('data-level');
+        var newlevel = Number(level)+1;
+        var pid = $(this).parents('.media-body').find('.huifu_append').attr('data-id');
+        var articleid = $('#btn-success').attr('data-articleid');
+        var name = $(this).parents('.form').find('.name').val();
+        var email = $(this).parents('.form').find('.email').val();
+        var web = $(this).parents('.form').find('.web').val();
+        var content = $(this).parents('.form').find('.content-huifu').val();
+        var img = $(this).parents('.form').find('.img').attr('src');
+        var _this = $(this);
+        $.ajax({
+            url : "{:url('index/message/add_message2')}",
+            type : "POST",
+            data : {
+                name : name,
+                email : email,
+                web : web,
+                content : content,
+                pid : pid,
+                img : img,
+                articleid : articleid,
+            },
+            success: function(response){
+            	var json2 = $.parseJSON(response);
+                var div = `
+		                <div class='media showS' style='margin-left: `+ newlevel*25 +`px;'>
+		                    <div class='media-left'>
+		                       <div class='media-object'>
+		                           <img src='`+json2.img+`' width='40px' height='40px' />
+		                       </div>
+		                    </div>
+		                    <div class='media-body'>
+		                       <div class='media-heading'>
+		                           <p><a href="`+json2.web+`" target="_blank">`+json2.name+`</a>
+		                                <i class='pull-right time'>`+json2.time+`</i>
+		                           </p>
+		                           <p class='message'><b><a href='javascript:;' class='aite'>@`+ json2.Aname +`:</a> `+json2.content+`</b></p>
+		                           <p class='time'>
+		                               <i class='dianzan' data-id='`+json2.id+`'><svg viewBox='0 0 20 18' xmlns='http://www.w3.org/2000/svg' class='Icon Icon--like Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M.718 7.024c-.718 0-.718.63-.718.63l.996 9.693c0 .703.718.65.718.65h1.45c.916 0 .847-.65.847-.65V7.793c-.09-.88-.853-.79-.846-.79l-2.446.02zm11.727-.05S13.2 5.396 13.6 2.89C13.765.03 11.55-.6 10.565.53c-1.014 1.232 0 2.056-4.45 5.83C5.336 6.965 5 8.01 5 8.997v6.998c-.016 1.104.49 2 1.99 2h7.586c2.097 0 2.86-1.416 2.86-1.416s2.178-5.402 2.346-5.91c1.047-3.516-1.95-3.704-1.95-3.704l-5.387.007z'></path></g></svg> <i class='lovenum'>`+json2.love+`</i></i>
+		                               <i class="huifu_append"  data-level='`+ newlevel +`' data-key='on' data-id='`+json2.id+`'><svg viewBox='0 0 22 16' class='Icon Icon--reply Icon--left' width='13' height='16' style='height: 14px; width: 11px;'><title></title><g><path d='M21.96 13.22c-1.687-3.552-5.13-8.062-11.637-8.65-.54-.053-1.376-.436-1.376-1.56V.677c0-.52-.635-.915-1.116-.52L.47 6.67C.18 6.947 0 7.334 0 7.763c0 .376.14.722.37.987 0 0 6.99 6.818 7.442 7.114.453.295 1.136.124 1.135-.5V13c.027-.814.703-1.466 1.532-1.466 1.185-.14 7.596-.077 10.33 2.396 0 0 .395.257.535.257.892 0 .614-.967.614-.967z'></path></g></svg> <i class='lovenum'>回复</i></i>
+		                           </p>
+		                       </div>
+		                       <div class="form_huifu"></div>
+		                    </div>
+		                </div>`;
+                $(_this).parents('.media').after(div);
+                $('textarea').val('');
+                $.ajax({
+                    url : "{:url('index/message/setCookie')}",
+                    type : "POST",
+                    data : {
+                        name : name,
+                        email : email,
+                        img : img,
+                        web : web,
+                    },
+                    success : function(res){
+                        $('#name').val(name);
+                        $('#email').val(email);
+                        $('#web').val(web);
+                        $('#img').attr('src',img);
+                    }
+                });
+                Stch1=false;
+            }
+        })
+    }
+});
+
+
+
+
+
+
+
+
+
+
+$('.content').delegate('.name','blur',function(){
+    var _parent = $(this).parents('.form');
+    if (reg.test(_parent.find('.name').val())) {
+        var email = _parent.find('.name').val()+'@qq.com';
+        var web = 'https://user.qzone.qq.com/'+_parent.find('.name').val();
+        $.ajax({
+            url: "{:url('index/message/qq')}",
+            type : "post",
+            data : {
+               qq : _parent.find('.name').val(),
+            },
+            success : function(response){var val = $.parseJSON(response);
+                _parent.find('.name').val(val.name);
+                _parent.find('.email').val(email);
+                _parent.find('.web').val(web);
+                _parent.find('.img').attr('src',val.txUrl)
+            }
+        })
+    }else{
+        return false;
+    }
+})
+
+
+
+
+var reg = /^[0-9]+.?[0-9]*$/;
+$('#name').blur(function(){
+    if (reg.test($('#name').val())) {
+        var email = $('#name').val()+'@qq.com';
+        var web = 'https://user.qzone.qq.com/'+$('#name').val();
+        $.ajax({
+            url: "{:url('index/message/qq')}",
+            type : "post",
+            data : {
+               qq : $('#name').val(),
+            },
+            success : function(response){var val = $.parseJSON(response);$('#name').val(val.name);$('#email').val(email);$('#web').val(web);$('#img').attr('src',val.txUrl);
+            }
+        })
+    }else{
+        return false;
+    }
+});
+
+$('.content').delegate('.cookimgs','click',function(){
+	$('.cookress').toggle();
+});
+$('.cookimg').click(function(){
+	$('.cookres').toggle();
+})
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<div class="big-nav">
+	<div class="margin-left-div">
+		<img src="http://q.qlogo.cn/headimg_dl?dst_uin=1103223758&spec=100" height="96" width="96">
+		<h4 class="author">zhihua</h4>
+		<p class="desc">最美不过重逢</p>
+	</div>
+	<div class="hr"></div>
+	<div class="margin-left-div">
+		<p class="margin-left-div-title">导航</p>
+		<ul class="margin-left-ul">
+			<a href="/tp5blog/public/index.php"><li><i class="glyphicon glyphicon-home"></i>首页</li></a>
+		</ul>
+	</div>
+	<div class="hr"></div>
+	<div class="margin-left-div">
+		<p class="margin-left-div-title">组成</p>
+		<ul class="margin-left-ul">
+			<li>
+				<i class="glyphicon glyphicon-th"></i>分类<i class="glyphicon glyphicon-menu-right pull-right"></i>					
+				<ul>
+					{volist name="cateres" id="vo"}
+						<a href="/tp5blog/public/index.php/cate/{$vo.id}.html"><li>{$vo.catename}</li></a>
+					{/volist}
+				</ul>
+			</li>
+			<li>
+				<i class="glyphicon glyphicon-file"></i>页面<i class="glyphicon glyphicon-menu-right pull-right"></i>
+				<ul>
+					<a href="{:url('index/message/index')}"><li>留言</li></a>
+				</ul>
+			</li>
+			<li>
+				<i class="glyphicon glyphicon-link"></i>友链<i class="glyphicon glyphicon-menu-right pull-right"></i>
+				<ul>
+					{volist name="linkres" id="vo"}
+						<a href="{$vo.url}" target="_blank"><li>{$vo.title}</li></a>
+					{/volist}
+				</ul>
+			</li>
+			</a>
+		</ul>
+	</div>
+</div>

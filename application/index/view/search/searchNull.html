@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冼智铧 - {$keywords}</title>
+	{include file="common/meta" /}
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="__STATIC__/index/css/index.css">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="__STATIC__/index/js/index.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+	<div class="container">
+		{include file="common/top" /}
+		<div class="main">
+			<div class="main-left">
+			{include file="common/left" /}
+			</div>
+			<div class="main-right">
+				<div class="main-right-left">
+					<div class="alert-bottom">
+						<h4>搜索: {$keywords}</h4>
+					</div>
+					<div class="content cate_content">
+						没有找到
+					</div>
+				</div>
+				<div class="main-right-right">
+				{include file="common/right" /}
+				</div>
+			</div>
+			{include file="common/footer" /}
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+
+	    </div>
+	  </div>
+	</div>
+
+</body>
+</html>
